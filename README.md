@@ -29,4 +29,4 @@ The system calculates the angle between the **Shoulder**, **Elbow**, and **Wrist
 
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/harishbeniwal045-oss/GYM_TRACKER.git](https://github.com/harishbeniwal045-oss/GYM_TRACKER.git)
+   https://github.com/harishbeniwal045-oss/GYM_TRACKER.git
