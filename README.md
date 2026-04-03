@@ -1,36 +1,31 @@
-# 🏋️‍♂️ AI Privacy-First Gym Tracker 
+# 🏋️‍♂️ AI-Powered Personal Gym Tracker
 
-A real-time, computer vision-based fitness application that tracks bicep curls while prioritizing user privacy and form accuracy. Built with **Python**, **OpenCV**, and **MediaPipe**.
+An intelligent fitness application that uses **Computer Vision** to automate workout tracking. Built with **Python**, **OpenCV**, and **MediaPipe**, this tool accurately detects body posture and counts repetitions for bicep curls in real-time.
 
-## 🌟 Key Features
+## 🌟 Features
 
-* **Privacy Mode:** Automatically masks the user's face with a black "Privacy Circle" to ensure identity protection during workouts.
-* **Posture Guard (Strict Mode):** Reps are only counted if the user maintains a straight posture. The system detects leaning by calculating the horizontal alignment between the shoulder and hip.
-* **Dynamic UI Feedback:**
-    * **Green Skeleton:** Correct form; ready to count.
-    * **Red Skeleton:** Incorrect posture or out of frame; counting locked.
-* **Live Angle Tracking:** Displays real-time joint angles ($0^\circ$ - $180^\circ$) directly on the elbow joints for instant feedback.
-* **Dual-Arm Logic:** Independent counters for both Left and Right arm repetitions.
+* **Real-time Pose Estimation:** Utilizes MediaPipe's BlazePose model to track 33 body landmarks.
+* **Dual-Arm Tracking:** Independent counters for both left and right arm repetitions.
+* **Intelligent Angle Logic:** Uses trigonometric calculations to determine elbow joint angles, ensuring reps are only counted through a full range of motion.
+* **Visual Debugging:** Displays live angle measurements on the screen to help users understand how their movement is being tracked.
+* **Dynamic UI:** The status box changes color (Red/Green) based on the current movement stage (`up` or `down`).
 
 ## 🛠️ Tech Stack
 
 * **Language:** Python 3.9+
 * **Computer Vision:** OpenCV
-* **Pose Estimation:** MediaPipe (BlazePose)
-* **Math:** NumPy (Trigonometric calculations)
+* **Pose Estimation:** MediaPipe
+* **Mathematics:** NumPy (Trigonometric calculations)
 
-## 📐 How It Works
+## 📐 How it Works
 
-The system uses the **Law of Cosines** to calculate the interior angle of the elbow joint. 
+The system calculates the angle between the **Shoulder**, **Elbow**, and **Wrist** landmarks using the `arctan2` function to handle 2D coordinate geometry.
 
+1.  **Stage "Down":** Triggered when the elbow angle exceeds **150°** (arm extended).
+2.  **Stage "Up":** Triggered when the elbow angle drops below **40°** (arm curled).
+3.  **Repetition:** A rep is only added to the counter when the arm successfully transitions from the "down" stage to the "up" stage.
 
-
-1.  **Detection:** MediaPipe identifies 33 3D landmarks on the body.
-2.  **Privacy:** The "Nose" landmark is used as the center point to draw a black overlay over the face.
-3.  **Validation:** The system checks if the absolute difference between `Shoulder_X` and `Hip_X` is within a strict threshold ($< 0.05$).
-4.  **Counting:** A rep is registered only when the state changes from `DOWN` ($> 155^\circ$) to `UP` ($< 40^\circ$) while the posture is valid.
-
-## 🚀 Installation
+## 🚀 Installation & Usage
 
 1. Clone the repository:
    ```bash
